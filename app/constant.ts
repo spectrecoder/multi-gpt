@@ -1,5 +1,5 @@
 export const OWNER = "hercles321";
-export const REPO = "Commune-MultiChatGPT";
+export const REPO = "com-multi-chatgpt";
 export const REPO_URL = `https://github.com/${OWNER}/${REPO}`;
 export const ISSUE_URL = `https://github.com/${OWNER}/${REPO}/issues`;
 export const UPDATE_URL = `${REPO_URL}#keep-updated`;

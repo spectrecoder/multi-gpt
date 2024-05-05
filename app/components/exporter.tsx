@@ -486,7 +486,7 @@ export function ImagePreviewer(props: {
           <div>
             <div className={styles["main-title"]}>Commune Multi ChatGPT</div>
             <div className={styles["sub-title"]}>
-              github.com/hercles321/Commune-MultiChatGPT
+              github.com/hercles321/com-multi-chatgpt
             </div>
             <div className={styles["icons"]}>
               <ExportAvatar avatar={config.avatar} />
