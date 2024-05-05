@@ -85,7 +85,7 @@
     "updater": {
       "active": true,
       "endpoints": [
-        "https://github.com/hercles321/Commune-MultiChatGPT/releases/latest/download/latest.json"
+        "https://github.com/hercles321/com-multi-chatgpt/releases/latest/download/latest.json"
       ],
       "dialog": false,
       "windows": {
