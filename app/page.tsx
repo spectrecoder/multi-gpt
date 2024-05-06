@@ -1,4 +1,5 @@
 "use client";
+
 import { Analytics } from "@vercel/analytics/react";
 
 import "@fontsource/source-code-pro";
@@ -85,7 +86,6 @@ export default async function App() {
             <ToastContainer />
           </RainbowKitProvider>
         </WagmiConfig>
-      
     </>
   );
 }
