@@ -1,7 +1,4 @@
 "use client";
-
-import { Analytics } from "@vercel/analytics/react";
-
 import "@fontsource/source-code-pro";
 import {
   connectorsForWallets,
@@ -17,6 +14,7 @@ import {
   trustWallet,
   walletConnectWallet
 } from '@rainbow-me/rainbowkit/wallets';
+import { Analytics } from "@vercel/analytics/react";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { configureChains, createConfig, sepolia, WagmiConfig } from 'wagmi';
@@ -32,6 +30,8 @@ import {
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 import { projectId } from "../config";
+import { Home } from "./components/home";
+import { getServerSideConfig } from "./config/server";
 
 const { chains, publicClient } = configureChains(
   [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, goerli],
@@ -68,12 +68,6 @@ export const wagmiConfig = createConfig({
   publicClient,
 });
 
-
-
-import { Home } from "./components/home";
-
-import { getServerSideConfig } from "./config/server";
-
 const serverConfig = getServerSideConfig();
 
 export default async function App() {
@@ -82,10 +76,10 @@ export default async function App() {
       <WagmiConfig config={wagmiConfig}>
           <RainbowKitProvider chains={chains} coolMode={true} theme={darkTheme()}>
             <Home />
-            {serverConfig?.isVercel && <Analytics />}
             <ToastContainer />
           </RainbowKitProvider>
         </WagmiConfig>
+        {serverConfig?.isVercel && <Analytics />}
     </>
   );
 }
