@@ -31,6 +31,7 @@
     "mermaid": "^10.4.0",
     "nanoid": "^4.0.2",
     "next": "^13.4.9",
+    "next-auth": "^4.24.7",
     "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

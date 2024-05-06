@@ -177,21 +177,11 @@ export function SideBar(props: { className?: string }) {
               {(() => {
                 if (!connected) {
                   return (
-
-                    // <Button
-                    //   size="large"
-                    //   variant="primary"
-                    //   className='flex items-center justify-center mt-2 w-full'
-                    //   onClick={openConnectModal}
-                    // >
-                    //   {/* <AiFillWallet size={18} /> */}
-                    //   SignIn with Metamask
-                    // </Button>
                     <IconButton
-                    text="SignIn with Metamask"
-                    onClick={openConnectModal}
-                    shadow
-                  />
+                      text="SignIn with Metamask"
+                      onClick={openConnectModal}
+                      shadow
+                    />
                   );
                 }
 
