@@ -1,3 +1,4 @@
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 import { useEffect, useRef } from "react";
 
 import styles from "./home.module.scss";
@@ -143,6 +144,8 @@ export function SideBar(props: { className?: string }) {
         shouldNarrow && styles["narrow-sidebar"]
       }`}
     >
+      <ConnectButton  label="Sign in"  accountStatus="avatar"  chainStatus="icon" showBalance={false} />
+
       <div className={styles["sidebar-header"]} data-tauri-drag-region>
         <div className={styles["sidebar-title"]} data-tauri-drag-region>
         Com Multi ChatGPT
@@ -154,7 +157,6 @@ export function SideBar(props: { className?: string }) {
           <ChatGptIcon />
         </div>
       </div>
-
       <div className={styles["sidebar-header-bar"]}>
         <IconButton
           icon={<MaskIcon />}
