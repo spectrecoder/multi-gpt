@@ -1,6 +1,6 @@
 import { ConnectButton } from '@rainbow-me/rainbowkit';
+import Image from 'next/image';
 import { useEffect, useRef } from "react";
-
 import styles from "./home.module.scss";
 
 import AddIcon from "../icons/add.svg";
@@ -11,9 +11,8 @@ import GithubIcon from "../icons/github.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
 import SettingsIcon from "../icons/settings.svg";
-import { IconButton } from "./button";
-
 import Locale from "../locales";
+import { IconButton } from "./button";
 
 import { useAppConfig, useChatStore } from "../store";
 
@@ -144,8 +143,110 @@ export function SideBar(props: { className?: string }) {
         shouldNarrow && styles["narrow-sidebar"]
       }`}
     >
-      <ConnectButton  label="Sign in"  accountStatus="avatar"  chainStatus="icon" showBalance={false} />
+      {/* <ConnectButton  label="Sign in"  accountStatus="avatar"  chainStatus="icon" showBalance={false} /> */}
+      <ConnectButton.Custom>
+        {({
+          account,
+          chain,
+          openAccountModal,
+          openChainModal,
+          openConnectModal,
+          authenticationStatus,
+          mounted,
+        }) => {
+          // Note: If your app doesn't use authentication, you
+          // can remove all 'authenticationStatus' checks
+          const ready = mounted && authenticationStatus !== 'loading';
+          const connected =
+            ready &&
+            account &&
+            chain &&
+            (!authenticationStatus ||
+              authenticationStatus === 'authenticated');
+          return (
+            <div
+              {...(!ready && {
+                'aria-hidden': true,
+                'style': {
+                  opacity: 0,
+                  pointerEvents: 'none',
+                  userSelect: 'none',
+                },
+              })}
+            >
+              {(() => {
+                if (!connected) {
+                  return (
 
+                    // <Button
+                    //   size="large"
+                    //   variant="primary"
+                    //   className='flex items-center justify-center mt-2 w-full'
+                    //   onClick={openConnectModal}
+                    // >
+                    //   {/* <AiFillWallet size={18} /> */}
+                    //   SignIn with Metamask
+                    // </Button>
+                    <IconButton
+                    text="SignIn with Metamask"
+                    onClick={openConnectModal}
+                    shadow
+                  />
+                  );
+                }
+
+                if (chain.unsupported) {
+                  return (
+                    <button onClick={openChainModal} type="button" style={{ boxShadow: 'rgb(0 0 0 / 98%) 3px 3px 3px 3px' }}>
+                      Wrong network
+                    </button>
+                  );
+                }
+
+                return (
+                  <div style={{ display: 'flex', gap: 12 }} className='flex items-center flex-col justify-center'>
+                    <button
+                      onClick={openChainModal}
+                      style={{ display: 'flex', alignItems: 'center' }}
+                      type="button"
+                    >
+                      {chain.hasIcon && (
+                        <div
+                          style={{
+                            background: chain.iconBackground,
+                            width: 12,
+                            height: 12,
+                            borderRadius: 999,
+                            overflow: 'hidden',
+                            marginRight: 4,
+                          }}
+                        >
+                          {chain.iconUrl && (
+                            <Image
+                              alt={chain.name ?? 'Chain icon'}
+                              src={chain.iconUrl}
+                              style={{ width: 12, height: 12 }}
+                              width={12}
+                              height={12}
+                            />
+                          )}
+                        </div>
+                      )}
+                      {chain.name}
+                    </button>
+                    <button onClick={openAccountModal} type="button">
+                      {account.displayName}
+                      {account.displayBalance
+                        ? ` (${account.displayBalance})`
+                        : ''}
+                    </button>
+                  </div>
+                );
+              })()}
+            </div>
+          );
+        }}
+      </ConnectButton.Custom>
       <div className={styles["sidebar-header"]} data-tauri-drag-region>
         <div className={styles["sidebar-title"]} data-tauri-drag-region>
         Com Multi ChatGPT
