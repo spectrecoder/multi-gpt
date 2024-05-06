@@ -5,8 +5,71 @@ import "./styles/globals.scss";
 import "./styles/highlight.scss";
 import "./styles/markdown.scss";
 
+import "@fontsource/source-code-pro";
+import {
+  connectorsForWallets,
+  darkTheme,
+  RainbowKitProvider
+} from '@rainbow-me/rainbowkit';
+import '@rainbow-me/rainbowkit/styles.css';
+import {
+  ledgerWallet,
+  metaMaskWallet,
+  okxWallet,
+  rainbowWallet,
+  trustWallet,
+  walletConnectWallet
+} from '@rainbow-me/rainbowkit/wallets';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { configureChains, createConfig, sepolia, WagmiConfig } from 'wagmi';
+import {
+  arbitrum,
+  base,
+  goerli,
+  mainnet,
+  optimism,
+  polygon,
+  zora,
+} from 'wagmi/chains';
+import { alchemyProvider } from 'wagmi/providers/alchemy';
+import { publicProvider } from 'wagmi/providers/public';
+import { projectId } from "../config";
+
+const { chains, publicClient } = configureChains(
+  [mainnet, polygon, optimism, arbitrum, base, zora, sepolia, goerli],
+  [
+    alchemyProvider({ apiKey: 'Pg7_v8x8SlXaP0ZsI90QrGFxOEEJBCtA' }),
+    publicProvider()
+  ]
+);
 
 
+const connectors = connectorsForWallets([
+  {
+    groupName: 'Recommended',
+    wallets: [
+      metaMaskWallet({ projectId, chains }),
+      ...(projectId ? [walletConnectWallet({ projectId, chains })] : []),
+      ...(projectId ? [trustWallet({ projectId, chains })] : []),
+    ],
+  },
+  {
+    groupName: 'Other',
+    wallets: [
+      ...(projectId ? [rainbowWallet({ projectId, chains })] : []),
+      ...(projectId ? [okxWallet({ projectId, chains })] : []),
+      ...(projectId ? [ledgerWallet({ projectId, chains })] : []),
+    ],
+  },
+]);
+
+
+export const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors,
+  publicClient,
+});
 
 
 export const metadata: Metadata = {
@@ -39,7 +102,14 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest"></link>
         <script src="/serviceWorkerRegister.js" defer></script>
       </head>
-      <body>{children}</body>
+      <body>
+        <WagmiConfig config={wagmiConfig}>
+          <RainbowKitProvider chains={chains} coolMode={true} theme={darkTheme()}>
+              {children}
+            <ToastContainer />
+          </RainbowKitProvider>
+        </WagmiConfig>
+      </body>
     </html>
   );
 }
