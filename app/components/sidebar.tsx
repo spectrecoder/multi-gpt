@@ -239,7 +239,7 @@ export function SideBar(props: { className?: string }) {
       </ConnectButton.Custom>
       <div className={styles["sidebar-header"]} data-tauri-drag-region>
         <div className={styles["sidebar-title"]} data-tauri-drag-region>
-        Com Multi ChatGPT
+        Multi ChatGPT
         </div>
         <div className={styles["sidebar-sub-title"]}>
           Build your own AI assistant.
