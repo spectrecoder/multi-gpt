@@ -9,7 +9,7 @@ import styles from "./home.module.scss";
 import BotIcon from "../icons/bot.svg";
 import LoadingIcon from "../icons/three-dots.svg";
 
-import { useMobileScreen } from "../utils";
+import { getCSSVar, useMobileScreen } from "../utils";
 
 import dynamic from "next/dynamic";
 import { Path, SlotID } from "../constant";
@@ -74,6 +74,15 @@ export function useSwitchTheme() {
     const metaDescriptionLight = document.querySelector(
       'meta[name="theme-color"][media*="light"]',
     );
+
+    if (config.theme === "auto") {
+      metaDescriptionDark?.setAttribute("content", "#151515");
+      metaDescriptionLight?.setAttribute("content", "#fafafa");
+    } else {
+      const themeColor = getCSSVar("--theme-color");
+      metaDescriptionDark?.setAttribute("content", themeColor);
+      metaDescriptionLight?.setAttribute("content", themeColor);
+    }
   }, [config.theme]);
 }
 
