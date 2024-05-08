@@ -6,7 +6,7 @@ import "./styles/highlight.scss";
 import "./styles/markdown.scss";
 
 export const metadata: Metadata = {
-  title: "Commune Multi ChatGPT",
+  title: "Multi ChatGPT",
   description: "Your personal ChatGPT Chat Bot.",
   viewport: {
     width: "device-width",
