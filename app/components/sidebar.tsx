@@ -7,7 +7,6 @@ import AddIcon from "../icons/add.svg";
 import ChatGptIcon from "../icons/chatgpt.svg";
 import CloseIcon from "../icons/close.svg";
 import DragIcon from "../icons/drag.svg";
-import GithubIcon from "../icons/github.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
 import SettingsIcon from "../icons/settings.svg";
@@ -22,8 +21,7 @@ import {
   MAX_SIDEBAR_WIDTH,
   MIN_SIDEBAR_WIDTH,
   NARROW_SIDEBAR_WIDTH,
-  Path,
-  REPO_URL,
+  Path
 } from "../constant";
 
 import dynamic from "next/dynamic";
@@ -301,9 +299,9 @@ export function SideBar(props: { className?: string }) {
             </Link>
           </div>
           <div className={styles["sidebar-action"]}>
-            <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
+            {/* <a href={REPO_URL} target="_blank" rel="noopener noreferrer">
               <IconButton icon={<GithubIcon />} shadow />
-            </a>
+            </a> */}
           </div>
         </div>
         <div>
