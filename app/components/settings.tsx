@@ -1,25 +1,24 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 
 import styles from "./settings.module.scss";
 
+import ResetIcon from "../icons/reload.svg";
 import AddIcon from "../icons/add.svg";
-import ClearIcon from "../icons/clear.svg";
 import CloseIcon from "../icons/close.svg";
-import ConfigIcon from "../icons/config.svg";
-import ConfirmIcon from "../icons/confirm.svg";
 import CopyIcon from "../icons/copy.svg";
-import DownloadIcon from "../icons/download.svg";
+import ClearIcon from "../icons/clear.svg";
+import LoadingIcon from "../icons/three-dots.svg";
 import EditIcon from "../icons/edit.svg";
 import EyeIcon from "../icons/eye.svg";
-import ResetIcon from "../icons/reload.svg";
-import LoadingIcon from "../icons/three-dots.svg";
+import DownloadIcon from "../icons/download.svg";
 import UploadIcon from "../icons/upload.svg";
+import ConfigIcon from "../icons/config.svg";
+import ConfirmIcon from "../icons/confirm.svg";
 
-import CloudFailIcon from "../icons/cloud-fail.svg";
-import CloudSuccessIcon from "../icons/cloud-success.svg";
 import ConnectionIcon from "../icons/connection.svg";
+import CloudSuccessIcon from "../icons/cloud-success.svg";
+import CloudFailIcon from "../icons/cloud-fail.svg";
 
-import { ModelConfigList } from "./model-config";
 import {
   Input,
   List,
@@ -31,36 +30,37 @@ import {
   showConfirm,
   showToast,
 } from "./ui-lib";
+import { ModelConfigList } from "./model-config";
 
+import { IconButton } from "./button";
 import {
   SubmitKey,
+  useChatStore,
   Theme,
+  useUpdateStore,
   useAccessStore,
   useAppConfig,
-  useChatStore,
-  useUpdateStore,
 } from "../store";
-import { IconButton } from "./button";
 
-import { nanoid } from "nanoid";
-import Link from "next/link";
-import { useNavigate } from "react-router-dom";
-import { getClientConfig } from "../config/client";
-import { Path, RELEASE_URL, STORAGE_KEY, UPDATE_URL } from "../constant";
 import Locale, {
-  ALL_LANG_OPTIONS,
   AllLangs,
+  ALL_LANG_OPTIONS,
   changeLang,
   getLang,
 } from "../locales";
-import { useMaskStore } from "../store/mask";
-import { Prompt, SearchService, usePromptStore } from "../store/prompt";
-import { useSyncStore } from "../store/sync";
 import { copyToClipboard } from "../utils";
-import { ProviderType } from "../utils/cloud";
-import { Avatar, AvatarPicker } from "./emoji";
+import Link from "next/link";
+import { Path, RELEASE_URL, STORAGE_KEY, UPDATE_URL } from "../constant";
+import { Prompt, SearchService, usePromptStore } from "../store/prompt";
 import { ErrorBoundary } from "./error";
 import { InputRange } from "./input-range";
+import { useNavigate } from "react-router-dom";
+import { Avatar, AvatarPicker } from "./emoji";
+import { getClientConfig } from "../config/client";
+import { useSyncStore } from "../store/sync";
+import { nanoid } from "nanoid";
+import { useMaskStore } from "../store/mask";
+import { ProviderType } from "../utils/cloud";
 
 function EditPromptModal(props: { id: string; onClose: () => void }) {
   const promptStore = usePromptStore();

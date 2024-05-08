@@ -5,7 +5,6 @@ import "./styles/globals.scss";
 import "./styles/highlight.scss";
 import "./styles/markdown.scss";
 
-
 export const metadata: Metadata = {
   title: "Commune Multi ChatGPT",
   description: "Your personal ChatGPT Chat Bot.",
@@ -36,9 +35,7 @@ export default function RootLayout({
         <link rel="manifest" href="/site.webmanifest"></link>
         <script src="/serviceWorkerRegister.js" defer></script>
       </head>
-      <body>
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

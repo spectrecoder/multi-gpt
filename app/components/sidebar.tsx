@@ -1,5 +1,5 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
-import Image from 'next/image';
+import { ConnectButton } from "@rainbow-me/rainbowkit";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import styles from "./home.module.scss";
 
@@ -11,8 +11,9 @@ import GithubIcon from "../icons/github.svg";
 import MaskIcon from "../icons/mask.svg";
 import PluginIcon from "../icons/plugin.svg";
 import SettingsIcon from "../icons/settings.svg";
-import Locale from "../locales";
 import { IconButton } from "./button";
+
+import Locale from "../locales";
 
 import { useAppConfig, useChatStore } from "../store";
 
@@ -143,7 +144,6 @@ export function SideBar(props: { className?: string }) {
         shouldNarrow && styles["narrow-sidebar"]
       }`}
     >
-      {/* <ConnectButton  label="Sign in"  accountStatus="avatar"  chainStatus="icon" showBalance={false} /> */}
       <ConnectButton.Custom>
         {({
           account,
@@ -248,6 +248,7 @@ export function SideBar(props: { className?: string }) {
           <ChatGptIcon />
         </div>
       </div>
+
       <div className={styles["sidebar-header-bar"]}>
         <IconButton
           icon={<MaskIcon />}

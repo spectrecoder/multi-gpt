@@ -1,6 +1,6 @@
 import { NextRequest } from "next/server";
-import md5 from "spark-md5";
 import { getServerSideConfig } from "../config/server";
+import md5 from "spark-md5";
 import { ACCESS_CODE_PREFIX } from "../constant";
 
 function getIP(req: NextRequest) {
@@ -49,7 +49,6 @@ export function auth(req: NextRequest) {
   // if user does not provide an api key, inject system api key
   if (!token) {
     const apiKey = serverConfig.apiKey;
-    console.log('---------------this is test------------------', apiKey)
     if (apiKey) {
       console.log("[Auth] use system api key");
       req.headers.set("Authorization", `Bearer ${apiKey}`);
