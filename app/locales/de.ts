@@ -225,7 +225,7 @@ const de: PartialLocaleType = {
   NewChat: {
     Return: "Return",
     Skip: "Skip",
-    Title: "Pick a Mask",
+    Title: "Pick a LiberPrompt",
     SubTitle: "Chat with the Soul behind the Mask",
     More: "Find More",
     NotShow: "Not Show Again",
