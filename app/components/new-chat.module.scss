@@ -93,9 +93,13 @@
       
 
       .mask {
-        @for $i from 1 to 10 {
+        $colors: green, rgba(255, 0, 0, 0.452), rgba(255, 255, 0, 0.678), rgba(0, 0, 255, 0.589), purple, cyan;
+
+        @for $i from 1 through 20 {
+          $random-color: nth($colors, random(length($colors)));
+          
           &:nth-child(#{$i}) {
-            background-color:cornflowerblue;
+            background-color: $random-color;
           }
         }
         display: flex;
