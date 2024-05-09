@@ -387,7 +387,7 @@ const en: LocaleType = {
     Return: "Return",
     Skip: "Just Start",
     Title: "Pick a LiberPrompt",
-    SubTitle: "Chat with the Soul behind the Mask",
+    SubTitle: "Chat with the Soul behind the LiberPrompt",
     More: "Find More",
     NotShow: "Never Show Again",
     ConfirmNoShow: "Confirm to disable？You can enable it in settings later.",

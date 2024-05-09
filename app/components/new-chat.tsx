@@ -4,18 +4,18 @@ import { IconButton } from "./button";
 import { EmojiAvatar } from "./emoji";
 import styles from "./new-chat.module.scss";
 
+import EyeIcon from "../icons/eye.svg";
 import LeftIcon from "../icons/left.svg";
 import LightningIcon from "../icons/lightning.svg";
-import EyeIcon from "../icons/eye.svg";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import { Mask, useMaskStore } from "../store/mask";
-import Locale from "../locales";
-import { useAppConfig, useChatStore } from "../store";
-import { MaskAvatar } from "./mask";
 import { useCommand } from "../command";
-import { showConfirm } from "./ui-lib";
+import Locale from "../locales";
 import { BUILTIN_MASK_STORE } from "../masks";
+import { useAppConfig, useChatStore } from "../store";
+import { Mask, useMaskStore } from "../store/mask";
+import { MaskAvatar } from "./mask";
+import { showConfirm } from "./ui-lib";
 
 function getIntersectionArea(aRect: DOMRect, bRect: DOMRect) {
   const xmin = Math.max(aRect.x, bRect.x);
@@ -47,7 +47,7 @@ function useMaskGroup(masks: Mask[]) {
 
       const rect = appBody.getBoundingClientRect();
       const maxWidth = rect.width;
-      const maxHeight = rect.height * 0.6;
+      const maxHeight = rect.height;
       const maskItemWidth = 120;
       const maskItemHeight = 50;
 
@@ -56,7 +56,10 @@ function useMaskGroup(masks: Mask[]) {
       const nextMask = () => masks[maskIndex++ % masks.length];
 
       const rows = Math.ceil(maxHeight / maskItemHeight);
-      const cols = Math.ceil(maxWidth / maskItemWidth);
+      const cols = 3;
+
+      console.log("cols", cols);
+      
 
       const newGroups = new Array(rows)
         .fill(0)
