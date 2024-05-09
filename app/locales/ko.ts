@@ -190,9 +190,9 @@ const ko: PartialLocaleType = {
     Sysmessage: "당신은 어시스턴트입니다",
   },
   Mask: {
-    Name: "마스크",
+    Name: "자유 프롬프트",
     Page: {
-      Title: "프롬프트 템플릿",
+      Title: "자유 프롬프트 템플릿",
       SubTitle: (count: number) => `${count}개의 프롬프트 템플릿`,
       Search: "템플릿 검색",
       Create: "생성",

@@ -195,9 +195,9 @@ const ru: PartialLocaleType = {
     Sysmessage: "Вы - ассистент, который",
   },
   Mask: {
-    Name: "Маска",
+    Name: "бесплатная подсказка",
     Page: {
-      Title: "Шаблон подсказки",
+      Title: "бесплатная подсказка",
       SubTitle: (count: number) => `${count} шаблонов подсказок`,
       Search: "Поиск шаблонов",
       Create: "Создать",

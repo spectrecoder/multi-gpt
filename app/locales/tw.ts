@@ -182,9 +182,9 @@ const tw: PartialLocaleType = {
   Plugin: { Name: "外掛" },
   FineTuned: { Sysmessage: "你是一個助手" },
   Mask: {
-    Name: "面具",
+    Name: "自由提示",
     Page: {
-      Title: "預設角色面具",
+      Title: "預設角色自由提示",
       SubTitle: (count: number) => `${count} 個預設角色定義`,
       Search: "搜尋角色面具",
       Create: "新增",

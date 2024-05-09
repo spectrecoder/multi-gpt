@@ -194,7 +194,7 @@ const es: PartialLocaleType = {
     Sysmessage: "Eres un asistente que",
   },
   Mask: {
-    Name: "Mask",
+    Name: "Liberprompt",
     Page: {
       Title: "Prompt Template",
       SubTitle: (count: number) => `${count} prompt templates`,

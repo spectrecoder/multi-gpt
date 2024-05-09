@@ -210,9 +210,9 @@ const jp: PartialLocaleType = {
   Plugin: { Name: "プラグイン" },
   FineTuned: { Sysmessage: "あなたはアシスタントです" },
   Mask: {
-    Name: "キャラクタープリセット",
+    Name: "自由プロンプト",
     Page: {
-      Title: "キャラクタープリセット",
+      Title: "自由プロンプト",
       SubTitle: (count: number) => `${count} 件見つかりました。`,
       Search: "検索",
       Create: "新規",
