@@ -1,4 +1,3 @@
-"use client";
 
 require("../polyfill");
 
@@ -17,6 +16,7 @@ import { ErrorBoundary } from "./error";
 
 import { getISOLang, getLang } from "../locales";
 
+import { SessionProvider } from "next-auth/react";
 import {
   Route,
   HashRouter as Router,
@@ -136,7 +136,8 @@ function Screen() {
   }, []);
 
   return (
-    <div
+    <SessionProvider>
+      <div
       className={
         styles.container +
         ` ${shouldTightBorder ? styles["tight-container"] : styles.container} ${
@@ -164,6 +165,7 @@ function Screen() {
         </>
       )}
     </div>
+    </SessionProvider>
   );
 }
 

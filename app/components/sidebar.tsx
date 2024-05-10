@@ -1,6 +1,9 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+
+import { signIn } from 'next-auth/react';
+
 import styles from "./home.module.scss";
 
 import AddIcon from "../icons/add.svg";
@@ -29,6 +32,7 @@ import {
 import dynamic from "next/dynamic";
 import { Link, useNavigate } from "react-router-dom";
 import { useMobileScreen } from "../utils";
+import GoogleButton from "./GoogleButton";
 import { showConfirm, showToast } from "./ui-lib";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
@@ -144,6 +148,7 @@ export function SideBar(props: { className?: string }) {
         shouldNarrow && styles["narrow-sidebar"]
       }`}
     >
+      <div className={styles["sidebar-header-bar"]}>
       <ConnectButton.Custom>
         {({
           account,
@@ -237,6 +242,15 @@ export function SideBar(props: { className?: string }) {
           );
         }}
       </ConnectButton.Custom>
+      {/* <GoogleButton /> */}
+      <IconButton
+          icon={<GoogleButton />}
+          text="SignIn"
+          className={styles["sidebar-bar-button"]}
+          onClick={() => signIn('google')}
+          shadow
+        />
+      </div>
       <div className={styles["sidebar-header"]} data-tauri-drag-region>
         <div className={styles["sidebar-title"]} data-tauri-drag-region>
         Com Multi ChatGPT
