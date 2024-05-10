@@ -3,17 +3,18 @@ import { IconButton } from "./button";
 
 import { useNavigate } from "react-router-dom";
 import { Path } from "../constant";
-import { useAccessStore } from "../store";
 import Locale from "../locales";
+import { useAccessStore } from "../store";
 
-import BotIcon from "../icons/bot.svg";
 import { useEffect } from "react";
 import { getClientConfig } from "../config/client";
+import BotIcon from "../icons/bot.svg";
 
 export function AuthPage() {
   const navigate = useNavigate();
   const access = useAccessStore();
 
+  
   const goHome = () => navigate(Path.Home);
   const resetAccessCode = () => access.updateCode(""); // Reset access code to empty string
 
