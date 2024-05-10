@@ -3,7 +3,6 @@ const GoogleButton: React.FC = () => {
   return (
     <button
         style={{ paddingRight:60, marginLeft: 40}}
-      
     >
       <GoogleLogo />
     </button>

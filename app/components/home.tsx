@@ -1,6 +1,7 @@
 
 require("../polyfill");
 
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import { useEffect, useState } from "react";
 
 import styles from "./home.module.scss";
@@ -16,7 +17,6 @@ import { ErrorBoundary } from "./error";
 
 import { getISOLang, getLang } from "../locales";
 
-import { SessionProvider } from "next-auth/react";
 import {
   Route,
   HashRouter as Router,
@@ -136,7 +136,6 @@ function Screen() {
   }, []);
 
   return (
-    <SessionProvider>
       <div
       className={
         styles.container +
@@ -165,7 +164,6 @@ function Screen() {
         </>
       )}
     </div>
-    </SessionProvider>
   );
 }
 
@@ -196,10 +194,13 @@ export function Home() {
   }
 
   return (
+    <GoogleOAuthProvider clientId="712711246254-novdfqffvc0a90r4efagvo14semrnsgo.apps.googleusercontent.com">
+
     <ErrorBoundary>
       <Router>
         <Screen />
       </Router>
     </ErrorBoundary>
+    </GoogleOAuthProvider>
   );
 }

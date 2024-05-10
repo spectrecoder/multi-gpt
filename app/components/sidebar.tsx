@@ -2,7 +2,6 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
 
-import { signIn } from 'next-auth/react';
 
 import styles from "./home.module.scss";
 
@@ -29,10 +28,12 @@ import {
   REPO_URL,
 } from "../constant";
 
+import { useGoogleLogin } from '@react-oauth/google';
 import dynamic from "next/dynamic";
 import { Link, useNavigate } from "react-router-dom";
-import { useMobileScreen } from "../utils";
 import GoogleButton from "./GoogleButton";
+
+import { useMobileScreen } from "../utils";
 import { showConfirm, showToast } from "./ui-lib";
 
 const ChatList = dynamic(async () => (await import("./chat-list")).ChatList, {
@@ -142,6 +143,11 @@ export function SideBar(props: { className?: string }) {
 
   useHotKey();
 
+  const login = useGoogleLogin({
+    onSuccess: codeResponse => console.log(codeResponse),
+    flow: 'auth-code',
+  });
+  
   return (
     <div
       className={`${styles.sidebar} ${props.className} ${
@@ -242,12 +248,11 @@ export function SideBar(props: { className?: string }) {
           );
         }}
       </ConnectButton.Custom>
-      {/* <GoogleButton /> */}
       <IconButton
-          icon={<GoogleButton />}
+          icon={<GoogleButton/>}
           text="SignIn"
           className={styles["sidebar-bar-button"]}
-          onClick={() => signIn('google')}
+          onClick={() => login()}
           shadow
         />
       </div>
