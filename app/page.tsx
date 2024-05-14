@@ -3,14 +3,45 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { Analytics } from "@vercel/analytics/react";
+
+import {
+  getDefaultConfig,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit';
+import '@rainbow-me/rainbowkit/styles.css';
+import {
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
+import { WagmiProvider } from 'wagmi';
+import {
+  arbitrum,
+  base,
+  mainnet,
+  optimism,
+  polygon,
+} from 'wagmi/chains';
 
 interface Model {
   id: string;
 }
 
+const config = getDefaultConfig({
+  appName: 'My RainbowKit App',
+  projectId: 'a0dd23157746b39315f34b62eb614eae',
+  chains: [mainnet, polygon, optimism, arbitrum, base],
+});
 
+import { Home } from "./components/home";
 
-export default function Home() {
+import { getServerSideConfig } from "./config/server";
+
+const serverConfig = getServerSideConfig();
+
+const queryClient = new QueryClient();
+
+export default function App() {
   const searchParams = useSearchParams();
   const [apiKey, setApiKey] = useState('');
   const [message, setMessage] = useState('');
@@ -141,53 +172,62 @@ export default function Home() {
       }
       {/* If API Key is created an returned show this component */}
       {apiKey ? (
-        <>
-          <div className="w-2/3 mx-auto text-center mt-10 mb-4">
-            <label htmlFor="model-dropdown" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-              Choose Model (all available OpenRouter models)
-            </label>
-            <select
-              id="model-dropdown"
-              name="model-dropdown"
-              className="block w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 pl-3 pr-10 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-200 ease-in-out"
-              value={selectedModel}
-              onChange={handleModelChange}
-            >
-              {models.map((model: Model, index: number) => (
-                <option key={index} value={model.id}>{model.id}</option>
-              ))}
-            </select>
-          </div>
-          <div className="w-2/3 mb-4">
-            <input
-              className="w-full rounded-lg border-gray-300 border p-4 h-12 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
-              placeholder="Enter your text"
-              value={inputText}
-              onChange={handleInputChange}
-            />
-          </div>
-          <button
-            className={`w-2/3 rounded-lg py-2 shadow-lg transition duration-150 ease-in-out text-lg font-bold
-              ${!inputText || isLoading ? 'bg-gray-400 text-gray-200 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-500'}`}
-            onClick={getCompletionsResponse}
-            disabled={!inputText || isLoading} // Disable the button if inputText is empty or if it's loading
-          >
-            {isLoading ? (
-              <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3"></div>
-                Loading Response...
-              </div>
-            ) : (
-              "Get Response"
-            )}
-          </button>
-          <div className="mt-4 px-6 py-4 w-2/3 mx-auto bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-md transition duration-200 ease-in-out">
-            <p className="text-lg leading-relaxed font-light">
-              {message || "Your response will appear here..."}
-            </p>
-          </div>
-        </>
-      ) : (
+        <WagmiProvider config={config}>
+        <QueryClientProvider client={queryClient}>
+          <RainbowKitProvider>
+            <Home />
+            {serverConfig?.isVercel && <Analytics />}
+          </RainbowKitProvider>
+        </QueryClientProvider>
+      </WagmiProvider>
+        // <>
+        //   <div className="w-2/3 mx-auto text-center mt-10 mb-4">
+        //     <label htmlFor="model-dropdown" className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+        //       Choose Model (all available OpenRouter models)
+        //     </label>
+        //     <select
+        //       id="model-dropdown"
+        //       name="model-dropdown"
+        //       className="block w-full bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm py-2 pl-3 pr-10 text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition duration-200 ease-in-out"
+        //       value={selectedModel}
+        //       onChange={handleModelChange}
+        //     >
+        //       {models.map((model: Model, index: number) => (
+        //         <option key={index} value={model.id}>{model.id}</option>
+        //       ))}
+        //     </select>
+        //   </div>
+        //   <div className="w-2/3 mb-4">
+        //     <input
+        //       className="w-full rounded-lg border-gray-300 border p-4 h-12 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-300 focus:border-transparent"
+        //       placeholder="Enter your text"
+        //       value={inputText}
+        //       onChange={handleInputChange}
+        //     />
+        //   </div>
+        //   <button
+        //     className={`w-2/3 rounded-lg py-2 shadow-lg transition duration-150 ease-in-out text-lg font-bold
+        //       ${!inputText || isLoading ? 'bg-gray-400 text-gray-200 cursor-not-allowed' : 'bg-blue-600 text-white hover:bg-blue-500'}`}
+        //     onClick={getCompletionsResponse}
+        //     disabled={!inputText || isLoading} // Disable the button if inputText is empty or if it's loading
+        //   >
+        //     {isLoading ? (
+        //       <div className="flex items-center justify-center">
+        //         <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-white mr-3"></div>
+        //         Loading Response...
+        //       </div>
+        //     ) : (
+        //       "Get Response"
+        //     )}
+        //   </button>
+        //   <div className="mt-4 px-6 py-4 w-2/3 mx-auto bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-lg shadow-md transition duration-200 ease-in-out">
+        //     <p className="text-lg leading-relaxed font-light">
+        //       {message || "Your response will appear here..."}
+        //     </p>
+        //   </div>
+        // </>
+      ) :
+       (
         // If API Key is not created show this component to login through OpenRouter
         <>
           <div className="w-full text-center border-b border-gray-300 bg-gradient-to-b from-white to-gray-100 pb-8 pt-10 backdrop-blur-lg dark:border-neutral-700 dark:bg-gray-900/80 dark:from-gray-800/80 lg:rounded-xl lg:border lg:p-6 lg:dark:bg-gray-800/80">
