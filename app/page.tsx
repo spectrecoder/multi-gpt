@@ -226,8 +226,7 @@ export default function App() {
         //     </p>
         //   </div>
         // </>
-      ) :
-       (
+      ) : (
         // If API Key is not created show this component to login through OpenRouter
         <>
           <div className="w-full text-center border-b border-gray-300 bg-gradient-to-b from-white to-gray-100 pb-8 pt-10 backdrop-blur-lg dark:border-neutral-700 dark:bg-gray-900/80 dark:from-gray-800/80 lg:rounded-xl lg:border lg:p-6 lg:dark:bg-gray-800/80">
