@@ -34,6 +34,10 @@ const serverConfig = getServerSideConfig();
 const queryClient = new QueryClient();
 
 export default async function App() {
+
+
+
+  
   return (
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
